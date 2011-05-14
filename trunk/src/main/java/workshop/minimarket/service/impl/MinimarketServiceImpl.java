@@ -45,7 +45,7 @@ public class MinimarketServiceImpl implements MinimarketService {
     }
 
     @Override
-    public Grup cariGrupByKodeGrup(String kodeGrup) {
+    public Grup cariGrupByKodeGrup(Long kodeGrup) {
         return (Grup) sessionFactory.getCurrentSession().get(Grup.class, kodeGrup);
     }
 
@@ -70,7 +70,7 @@ public class MinimarketServiceImpl implements MinimarketService {
     }
 
     @Override
-    public Produk cariSemuaProdukByKodeProduk(String kodeProduk) {
+    public Produk cariProdukByKodeProduk(Long kodeProduk) {
         return (Produk) sessionFactory.getCurrentSession().get(Produk.class, kodeProduk);
     }
 }

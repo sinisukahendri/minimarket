@@ -38,17 +38,16 @@ public class MinimarketServiceImplTest {
 
         dataSource = (DataSource) ctx.getBean("dataSource");
     }
+    
+    public void testSimpanGrup() throws Exception {
+        Grup g = new Grup();
+        g.setNamaGrup("KOPI");
 
-        //@Test
-	public void testSimpanGrup() throws Exception {
-		Grup g = new Grup();
-		g.setNamaGrup("KOPI");
-		
-		minimarketService.simpanGrup(g);
-		testIsiTabel("t_grup", 1);
-	}
+        minimarketService.simpanGrup(g);
+        testIsiTabel("t_grup", 1);
+    }
 
-    @Test
+    
     public void testCascadeSave() throws Exception {
         Grup g = new Grup();
         g.setNamaGrup("ROKOK");
@@ -74,5 +73,15 @@ public class MinimarketServiceImplTest {
                 Long.valueOf(rs.getLong(1)));
 
         conn.close();
+    }
+    
+    @Test
+    public void testParentDelete() {
+        Grup g = minimarketService.cariGrupByKodeGrup(1L);
+        try {
+            minimarketService.hapusGrup(g);
+        } catch (Exception e) {
+            System.out.println("\nDATA BARANG YANG DIMASUKKAN TIDAK DITEMUKAN!\n");
+        }
     }
 }
