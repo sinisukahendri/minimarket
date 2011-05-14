@@ -21,9 +21,10 @@ import javax.persistence.Table;
 @Entity 
 @Table(name="t_grup")
 public class Grup {    
-    @Id @GeneratedValue
+    @Id 
+    @GeneratedValue
     @Column(name="kode_grup", length=3)
-    private String kodeGrup;    
+    private Long kodeGrup;    
     
     @Column(name="nama_grup", length=60, nullable=false)
     private String namaGrup;
@@ -31,11 +32,11 @@ public class Grup {
     @OneToMany(mappedBy="grup", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Produk> daftarProduk = new ArrayList<Produk>();
     
-    public String getKodeGrup() {
+    public Long getKodeGrup() {
         return kodeGrup;
     }
 
-    public void setKodeGrup(String kodeGrup) {
+    public void setKodeGrup(Long kodeGrup) {
         this.kodeGrup = kodeGrup;
     }
 

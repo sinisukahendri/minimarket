@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Jaka
  */
 @Service("minimarketService")
-@Transactional(readOnly = true)
+@Transactional
 public class MinimarketServiceImpl implements MinimarketService {
 
     @Autowired
@@ -27,7 +27,6 @@ public class MinimarketServiceImpl implements MinimarketService {
     //GRUP
 
     @Override
-    @Transactional(readOnly = false)
     public void simpanGrup(Grup grup) {
         sessionFactory.getCurrentSession().saveOrUpdate(grup);
     }
