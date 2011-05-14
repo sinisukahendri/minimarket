@@ -27,14 +27,14 @@ public class Produk {
     
     @ManyToOne
     @JoinColumn(name="kode_grup")
-    private String kodeGrup;
+    private Grup grup;
 
-    public String getKodeGrup() {
-        return kodeGrup;
+    public Grup getGrup() {
+        return grup;
     }
 
-    public void setKodeGrup(String kodeGrup) {
-        this.kodeGrup = kodeGrup;
+    public void setGrup(Grup grup) {
+        this.grup = grup;
     }
 
     public String getKodeProduk() {
