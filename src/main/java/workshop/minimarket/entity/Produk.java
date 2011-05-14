@@ -4,13 +4,29 @@
  */
 package workshop.minimarket.entity;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 /**
  *
  * @author BangsJack
  */
 public class Produk {
-    private String kodeProduk;    
+    @Id 
+    @GeneratedValue
+    @Column(name="kode_produk",length=7)
+    private String kodeProduk;
+    
+    @NotNull
+    @Column(name="nama_produk", length=60, nullable=false)
     private String namaProduk;
+    
+    @ManyToOne
+    @JoinColumn(name="kode_grup")
     private String kodeGrup;
 
     public String getKodeGrup() {
