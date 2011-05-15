@@ -5,6 +5,7 @@
 package workshop.minimarket.service.impl;
 
 import java.util.List;
+import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
 import workshop.minimarket.entity.Produk;
 import workshop.minimarket.service.MinimarketService;
@@ -72,5 +73,29 @@ public class MinimarketServiceImpl implements MinimarketService {
     @Override
     public Produk cariProdukByKodeProduk(Long kodeProduk) {
         return (Produk) sessionFactory.getCurrentSession().get(Produk.class, kodeProduk);
+    }
+    
+    //BARANG
+
+    @Override
+    public void simpanBarang(Barang barang) {
+        sessionFactory.getCurrentSession().saveOrUpdate(barang);
+    }
+
+    @Override
+    public void hapusBarang(Barang barang) {
+        sessionFactory.getCurrentSession().delete(barang);
+    }
+
+    @Override
+    public List<Barang> cariSemuaBarang() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from Barang order by namaBarang")
+    	.list();
+    }
+
+    @Override
+    public Barang cariBarangByKodeBarang(Long kodeBarang) {
+        return (Barang) sessionFactory.getCurrentSession().get(Barang.class, kodeBarang);
     }
 }
