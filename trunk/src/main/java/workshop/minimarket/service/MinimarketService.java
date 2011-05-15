@@ -34,11 +34,12 @@ public interface MinimarketService {
     public void simpanPenjualan(Penjualan penjualan);
     public void hapusPenjualan(Penjualan penjualan);
     public List<Penjualan> cariSemuaPenjualan();
-    public Penjualan cariPenjualanByNoNota(Long noNota); 
+    public Penjualan cariPenjualanByNoNota(Long noNota);
+    public double hitungTotalPembayaranByNoNota(Long noNota);
     
     public void simpanPenjualanDetail(PenjualanDetail penjualanDetail);
     public void hapusPenjualanDetail(PenjualanDetail penjualanDetail);
     public List<PenjualanDetail> cariSemuaPenjualanDetail();
-    public PenjualanDetail cariPenjualanDetailByNoNota(String noNota);     
+    public List<PenjualanDetail> cariPenjualanDetailByNoNota(Long noNota);     
 
 }

@@ -4,6 +4,7 @@
  */
 package workshop.minimarket.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Hibernate;
 import workshop.minimarket.entity.Barang;
@@ -144,6 +145,8 @@ public class MinimarketServiceImpl implements MinimarketService {
 		Hibernate.initialize(p.getDaftarPenjualanDetail());
 		return p;
     }
+    
+    
 
     // PenjualanDetail
     
@@ -165,7 +168,24 @@ public class MinimarketServiceImpl implements MinimarketService {
     }
 
     @Override
-    public PenjualanDetail cariPenjualanDetailByNoNota(String noNota) {
-        return (PenjualanDetail) sessionFactory.getCurrentSession().get(PenjualanDetail.class, noNota);
+    public List<PenjualanDetail> cariPenjualanDetailByNoNota(Long noNota) {
+        List<PenjualanDetail> listPd = new ArrayList<PenjualanDetail>();
+        listPd = sessionFactory.getCurrentSession()
+		.createQuery("from PenjualanDetail where penjualan.noNota = :nota")
+                .setLong("nota", noNota)
+		.list();
+        Hibernate.initialize(listPd);
+        return listPd;
+    }
+
+    @Override
+    public double hitungTotalPembayaranByNoNota(Long noNota) {
+       List<PenjualanDetail> listPd = cariPenjualanDetailByNoNota(noNota);
+       Penjualan p = cariPenjualanByNoNota(noNota);
+       double total = 0;
+        for (PenjualanDetail totalPd : listPd) {
+             total += totalPd.getSubTotal();
+       }
+        return total;
     }
 }
