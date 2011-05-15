@@ -7,6 +7,8 @@ package workshop.minimarket.service.impl;
 import java.util.List;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Penjualan;
+import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
 import workshop.minimarket.service.MinimarketService;
 import org.hibernate.SessionFactory;
@@ -21,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("minimarketService")
 @Transactional
 public class MinimarketServiceImpl implements MinimarketService {
-
     @Autowired
     private SessionFactory sessionFactory;
     
@@ -97,5 +98,53 @@ public class MinimarketServiceImpl implements MinimarketService {
     @Override
     public Barang cariBarangByKodeBarang(Long kodeBarang) {
         return (Barang) sessionFactory.getCurrentSession().get(Barang.class, kodeBarang);
+    }
+
+    // Penjualan
+    
+    @Override
+    public void simpanPenjualan(Penjualan penjualan) {
+        sessionFactory.getCurrentSession().saveOrUpdate(penjualan);
+    }
+
+    @Override
+    public void hapusPenjualan(Penjualan penjualan) {
+        sessionFactory.getCurrentSession().delete(penjualan);
+    }
+
+    @Override
+    public List<Penjualan> cariSemuaPenjualan() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from Penjualan order by tglNota")
+    	.list();
+    }
+
+    @Override
+    public Penjualan cariPenjualanByNoNota(String noNota) {
+        return (Penjualan) sessionFactory.getCurrentSession().get(Penjualan.class, noNota);
+    }
+
+    // PenjualanDetail
+    
+    @Override
+    public void simpanPenjualanDetail(PenjualanDetail penjualanDetail) {
+        sessionFactory.getCurrentSession().saveOrUpdate(penjualanDetail);
+    }
+
+    @Override
+    public void hapusPenjualanDetail(PenjualanDetail penjualanDetail) {
+        sessionFactory.getCurrentSession().delete(penjualanDetail);
+    }
+
+    @Override
+    public List<PenjualanDetail> cariSemuaPenjualanDetail() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from PenjualanDetail order by noNota")
+    	.list();
+    }
+
+    @Override
+    public PenjualanDetail cariPenjualanDetailByNoNota(String noNota) {
+        return (PenjualanDetail) sessionFactory.getCurrentSession().get(PenjualanDetail.class, noNota);
     }
 }

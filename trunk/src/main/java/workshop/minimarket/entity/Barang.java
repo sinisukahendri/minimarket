@@ -4,13 +4,16 @@
  */
 package workshop.minimarket.entity;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -20,8 +23,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity 
 @Table(name="t_barang")
-public class Barang {
-
+public class Barang {  
     @Id
     @GeneratedValue
     @Column(name="kode_barang", length=11)
@@ -45,7 +47,10 @@ public class Barang {
     private double hargaJual;
     
     @Column(name="stok", length=10)
-    private Integer stok;
+    private Integer stok;   
+    
+    @OneToMany(mappedBy="barang", cascade=CascadeType.ALL)
+    private List<PenjualanDetail> daftarPenjualanDetail = new ArrayList<PenjualanDetail>();
 
     public double getHargaBeli() {
         return hargaBeli;
@@ -102,4 +107,12 @@ public class Barang {
     public void setStok(Integer stok) {
         this.stok = stok;
     }
+
+    public List<PenjualanDetail> getDaftarPenjualanDetail() {
+        return daftarPenjualanDetail;
+    }
+
+    public void setDaftarPenjualanDetail(List<PenjualanDetail> daftarPenjualanDetail) {
+        this.daftarPenjualanDetail = daftarPenjualanDetail;
+    }    
 }
