@@ -5,6 +5,7 @@
 package workshop.minimarket.service.impl;
 
 import java.util.List;
+import org.hibernate.Hibernate;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
 import workshop.minimarket.entity.Penjualan;
@@ -48,7 +49,12 @@ public class MinimarketServiceImpl implements MinimarketService {
 
     @Override
     public Grup cariGrupByKodeGrup(Long kodeGrup) {
-        return (Grup) sessionFactory.getCurrentSession().get(Grup.class, kodeGrup);
+       Grup g = (Grup) sessionFactory.getCurrentSession()
+		.createQuery("from Grup where kodeGrup = :kode")
+		.setLong("kode", kodeGrup)
+		.uniqueResult();
+		Hibernate.initialize(g.getDaftarProduk());
+		return g;
     }
 
     
@@ -73,7 +79,12 @@ public class MinimarketServiceImpl implements MinimarketService {
 
     @Override
     public Produk cariProdukByKodeProduk(Long kodeProduk) {
-        return (Produk) sessionFactory.getCurrentSession().get(Produk.class, kodeProduk);
+        Produk p = (Produk) sessionFactory.getCurrentSession()
+		.createQuery("from Produk where kodeProduk = :kode")
+		.setLong("kode", kodeProduk)
+		.uniqueResult();
+		Hibernate.initialize(p.getDaftarBarang());
+		return p;
     }
     
     //BARANG
