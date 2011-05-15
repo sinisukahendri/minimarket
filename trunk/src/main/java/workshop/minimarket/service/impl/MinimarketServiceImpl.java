@@ -108,7 +108,12 @@ public class MinimarketServiceImpl implements MinimarketService {
 
     @Override
     public Barang cariBarangByKodeBarang(Long kodeBarang) {
-        return (Barang) sessionFactory.getCurrentSession().get(Barang.class, kodeBarang);
+        Barang b = (Barang) sessionFactory.getCurrentSession()
+		.createQuery("from Barang where kodeBarang = :kode")
+		.setLong("kode", kodeBarang)
+		.uniqueResult();
+		Hibernate.initialize(b.getDaftarPenjualanDetail());
+		return b;
     }
 
     // Penjualan
@@ -131,8 +136,13 @@ public class MinimarketServiceImpl implements MinimarketService {
     }
 
     @Override
-    public Penjualan cariPenjualanByNoNota(String noNota) {
-        return (Penjualan) sessionFactory.getCurrentSession().get(Penjualan.class, noNota);
+    public Penjualan cariPenjualanByNoNota(Long noNota) {
+        Penjualan p = (Penjualan) sessionFactory.getCurrentSession()
+		.createQuery("from Penjualan where noNota = :nota")
+		.setLong("nota", noNota)
+		.uniqueResult();
+		Hibernate.initialize(p.getDaftarPenjualanDetail());
+		return p;
     }
 
     // PenjualanDetail

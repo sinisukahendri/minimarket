@@ -30,6 +30,9 @@ public class Penjualan {
     @Column(name="no_nota", length=10)
     private Long noNota;
     
+    @OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true)
+    private List<PenjualanDetail> daftarPenjualanDetail = new ArrayList<PenjualanDetail>();
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="tgl_nota")
     private Date tglNota;
@@ -42,9 +45,6 @@ public class Penjualan {
     
     @Column(name="user_id", length=30)
     private String userId;
-    
-    @OneToMany(mappedBy="penjualan", cascade=CascadeType.ALL, orphanRemoval=true)
-    private List<PenjualanDetail> daftarPenjualanDetail = new ArrayList<PenjualanDetail>();
 
     public List<PenjualanDetail> getDaftarPenjualanDetail() {
         return daftarPenjualanDetail;
