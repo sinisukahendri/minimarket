@@ -109,10 +109,10 @@ public class MinimarketServiceImplTest {
     }   
     
     //Test simpan table penjualan
+    
      public void testSimpanPenjualan() throws Exception {
         Penjualan p = new Penjualan();
         p.setTglNota(new Date());
-        p.setTotalBayar(100000);
         p.setKodePelanggan("Jaka");
         p.setUserId("Rozak");
 
@@ -120,10 +120,10 @@ public class MinimarketServiceImplTest {
         testIsiTabel("t_penjualan", 1);
     }
      
-       @Test
+     
      public void testCascadeSavePenjualanDetail() throws Exception {
         Penjualan p = minimarketService.cariPenjualanByNoNota(1L);     
-        Barang b = minimarketService.cariBarangByKodeBarang(1L);
+        Barang b = minimarketService.cariBarangByKodeBarang(2L);
        
         PenjualanDetail pd = new PenjualanDetail();        
         pd.setJumlah(2);
@@ -136,4 +136,12 @@ public class MinimarketServiceImplTest {
         b.getDaftarPenjualanDetail().add(pd);
         minimarketService.simpanPenjualan(p);
     }
+     
+     @Test
+     public void testHitungTotalPembayaran() throws Exception{
+         Penjualan p = minimarketService.cariPenjualanByNoNota(1L);
+         double total = minimarketService.hitungTotalPembayaranByNoNota(1L);
+         p.setTotalBayar(total);
+         minimarketService.simpanPenjualan(p);
+     }
 }
