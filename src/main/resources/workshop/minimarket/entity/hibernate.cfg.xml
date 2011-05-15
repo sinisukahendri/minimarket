@@ -8,5 +8,7 @@
     <mapping class="workshop.minimarket.entity.Grup"/>
     <mapping class="workshop.minimarket.entity.Produk"/>
     <mapping class="workshop.minimarket.entity.Barang"/>
+    <mapping class="workshop.minimarket.entity.Penjualan"/>
+    <mapping class="workshop.minimarket.entity.PenjualanDetail"/>
   </session-factory>
 </hibernate-configuration>

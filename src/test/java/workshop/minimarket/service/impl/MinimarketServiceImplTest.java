@@ -4,8 +4,10 @@
  */
 package workshop.minimarket.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -17,6 +19,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.Produk;
 import workshop.minimarket.service.MinimarketService;
 
@@ -40,6 +43,7 @@ public class MinimarketServiceImplTest {
         dataSource = (DataSource) ctx.getBean("dataSource");
     }
     
+    //Test menyimpan pada tabel Grup
     public void testSimpanGrup() throws Exception {
         Grup g = new Grup();
         g.setNamaGrup("KOPI");
@@ -48,7 +52,7 @@ public class MinimarketServiceImplTest {
         testIsiTabel("t_grup", 1);
     }
 
-    @Test
+   //Test menyimpan pada Cascade
     public void testCascadeSave() throws Exception {
         Grup g = new Grup();
         g.setNamaGrup("ROKOK");
@@ -85,13 +89,36 @@ public class MinimarketServiceImplTest {
         conn.close();
     }
     
-    
+    //Test menghapus data di table parent, jika parent dihapus maka child otomatis terhapus     
     public void testParentDelete() {
-        Grup g = minimarketService.cariGrupByKodeGrup(1L);
+        Grup g = minimarketService.cariGrupByKodeGrup(2L);
         try {
             minimarketService.hapusGrup(g);
         } catch (Exception e) {
             System.out.println("\nDATA BARANG YANG DIMASUKKAN TIDAK DITEMUKAN!\n");
         }
+    }
+    
+   //Test menghapus data di table child, jika child dihapus maka parent tidak terhapus
+    public void testChildDelete() {
+        Produk p = minimarketService.cariProdukByKodeProduk(2L);
+        try {
+            minimarketService.hapusProduk(p);
+        } catch (Exception e) {
+            System.out.println("\nDATA BARANG YANG DIMASUKKAN TIDAK DITEMUKAN!\n");
+        }
+    }
+    
+    @Test
+    //Test simpan table penjualan
+     public void testSimpanPenjualan() throws Exception {
+        Penjualan p = new Penjualan();
+        p.setTglNota(new Date());
+        p.setTotalBayar(100000);
+        p.setKodePelanggan("Jaka");
+        p.setUserId("Rozak");
+
+        minimarketService.simpanPenjualan(p);
+        testIsiTabel("t_penjualan", 1);
     }
 }
