@@ -33,6 +33,9 @@ public class Barang {
     @JoinColumn(name="kode_produk")
     private Produk produk;
     
+    @OneToMany(mappedBy="barang", cascade= CascadeType.ALL)
+    private List<PenjualanDetail> daftarPenjualanDetail = new ArrayList<PenjualanDetail>();
+        
     @NotNull
     @Column(name="nama_barang", length=120, nullable=false)
     private String nama_barang;
@@ -47,11 +50,8 @@ public class Barang {
     private double hargaJual;
     
     @Column(name="stok", length=10)
-    private Integer stok;   
+    private Integer stok;
     
-    @OneToMany(mappedBy="barang", cascade=CascadeType.ALL)
-    private List<PenjualanDetail> daftarPenjualanDetail = new ArrayList<PenjualanDetail>();
-
     public double getHargaBeli() {
         return hargaBeli;
     }

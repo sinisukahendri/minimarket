@@ -4,7 +4,6 @@
  */
 package workshop.minimarket.service.impl;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
@@ -12,7 +11,6 @@ import java.util.Date;
 import javax.sql.DataSource;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -20,6 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
 import workshop.minimarket.entity.Penjualan;
+import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
 import workshop.minimarket.service.MinimarketService;
 
@@ -51,7 +50,7 @@ public class MinimarketServiceImplTest {
         minimarketService.simpanGrup(g);
         testIsiTabel("t_grup", 1);
     }
-
+  
    //Test menyimpan pada Cascade
     public void testCascadeSave() throws Exception {
         Grup g = new Grup();
@@ -75,7 +74,7 @@ public class MinimarketServiceImplTest {
 
         minimarketService.simpanGrup(g);
     }
-
+    
     private void testIsiTabel(String namatabel, Integer jumlahRecord)
             throws Exception {
         String sql = "select count(*) from " + namatabel;
@@ -107,9 +106,8 @@ public class MinimarketServiceImplTest {
         } catch (Exception e) {
             System.out.println("\nDATA BARANG YANG DIMASUKKAN TIDAK DITEMUKAN!\n");
         }
-    }
+    }   
     
-    @Test
     //Test simpan table penjualan
      public void testSimpanPenjualan() throws Exception {
         Penjualan p = new Penjualan();
@@ -120,5 +118,22 @@ public class MinimarketServiceImplTest {
 
         minimarketService.simpanPenjualan(p);
         testIsiTabel("t_penjualan", 1);
+    }
+     
+       @Test
+     public void testCascadeSavePenjualanDetail() throws Exception {
+        Penjualan p = minimarketService.cariPenjualanByNoNota(1L);     
+        Barang b = minimarketService.cariBarangByKodeBarang(1L);
+       
+        PenjualanDetail pd = new PenjualanDetail();        
+        pd.setJumlah(2);
+        pd.setHargaJual(b.getHargaJual());              
+        pd.setSubTotal(pd.getHargaJual() * pd.getJumlah());
+        pd.setPenjualan(p);
+        pd.setBarang(b);
+              
+        p.getDaftarPenjualanDetail().add(pd); // supaya k ikut cascade save      
+        b.getDaftarPenjualanDetail().add(pd);
+        minimarketService.simpanPenjualan(p);
     }
 }
