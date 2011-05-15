@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
 import workshop.minimarket.entity.Produk;
 import workshop.minimarket.service.MinimarketService;
@@ -47,17 +48,26 @@ public class MinimarketServiceImplTest {
         testIsiTabel("t_grup", 1);
     }
 
-    
+    @Test
     public void testCascadeSave() throws Exception {
         Grup g = new Grup();
         g.setNamaGrup("ROKOK");
 
 
         Produk p = new Produk();
-        p.setNamaProduk("LA LIGHTS");
-
+        p.setNamaProduk("DJARUM");
         p.setGrup(g);  // set FK
+        
+        Barang b = new Barang();
+        b.setNama_barang("LA LIGHTS");
+        b.setHargaBeli(8000);
+        b.setHargaJual(10000);
+        b.setSatuan("bungkus");
+        b.setStok(12);
+        b.setProduk(p); // set FK
+        
         g.getDaftarProduk().add(p); // supaya k ikut cascade save
+        p.getDaftarBarang().add(b);// supaya b ikut cascade save
 
         minimarketService.simpanGrup(g);
     }
@@ -75,7 +85,7 @@ public class MinimarketServiceImplTest {
         conn.close();
     }
     
-    @Test
+    
     public void testParentDelete() {
         Grup g = minimarketService.cariGrupByKodeGrup(1L);
         try {

@@ -7,53 +7,76 @@ package workshop.minimarket.entity;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Jaka
  */
+@Entity 
+@Table(name="t_barang")
 public class Barang {
-    
-     private String kodeBarang;
-     private String kodeProduk;
-     private String nama_barang;
-     private String satuan;
-     private BigDecimal hargaBeli;
-     private BigDecimal hargaJual;
-     private Integer stok;
 
-    public BigDecimal getHargaBeli() {
+    @Id
+    @GeneratedValue
+    @Column(name="kode_barang", length=11)
+    private Long kodeBarang;
+    
+    @ManyToOne
+    @JoinColumn(name="kode_produk")
+    private Produk produk;
+    
+    @NotNull
+    @Column(name="nama_barang", length=120, nullable=false)
+    private String nama_barang;
+    
+    @Column(name="satuan", length=25)
+    private String satuan;
+    
+    @Column(name="harga_beli", length=19)
+    private double hargaBeli;
+    
+    @Column(name="harga_jual", length=19)
+    private double hargaJual;
+    
+    @Column(name="stok", length=10)
+    private Integer stok;
+
+    public double getHargaBeli() {
         return hargaBeli;
     }
 
-    public void setHargaBeli(BigDecimal hargaBeli) {
+    public void setHargaBeli(double hargaBeli) {
         this.hargaBeli = hargaBeli;
     }
 
-    public BigDecimal getHargaJual() {
+    public double getHargaJual() {
         return hargaJual;
     }
 
-    public void setHargaJual(BigDecimal hargaJual) {
+    public void setHargaJual(double hargaJual) {
         this.hargaJual = hargaJual;
     }
 
-    public String getKodeBarang() {
+    public Long getKodeBarang() {
         return kodeBarang;
     }
 
-    public void setKodeBarang(String kodeBarang) {
+    public void setKodeBarang(Long kodeBarang) {
         this.kodeBarang = kodeBarang;
     }
 
-    public String getKodeProduk() {
-        return kodeProduk;
+    public Produk getProduk() {
+        return produk;
     }
 
-    public void setKodeProduk(String kodeProduk) {
-        this.kodeProduk = kodeProduk;
+    public void setProduk(Produk produk) {
+        this.produk = produk;
     }
 
     public String getNama_barang() {
@@ -79,8 +102,4 @@ public class Barang {
     public void setStok(Integer stok) {
         this.stok = stok;
     }
-     
-     
-     
-    
 }

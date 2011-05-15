@@ -7,5 +7,6 @@
     <property name="hibernate.format_sql">true</property>
     <mapping class="workshop.minimarket.entity.Grup"/>
     <mapping class="workshop.minimarket.entity.Produk"/>
+    <mapping class="workshop.minimarket.entity.Barang"/>
   </session-factory>
 </hibernate-configuration>

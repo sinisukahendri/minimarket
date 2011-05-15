@@ -26,11 +26,11 @@ public interface MinimarketService {
     public List<Produk> cariSemuaProduk();
     public Produk cariProdukByKodeProduk(Long kodeProduk);   
     
-//    public void simpanBarang(Barang barang);
-//    public void hapusBarang(Barang barang);
-//    public List<Barang> cariSemuaBarang();
-//    public Barang cariSemuaBarangByKodeBarang(String kodeBarang); 
-//    
+    public void simpanBarang(Barang barang);
+    public void hapusBarang(Barang barang);
+    public List<Barang> cariSemuaBarang();
+    public Barang cariBarangByKodeBarang(Long kodeBarang); 
+    
 //    public void simpanPenjualan(Penjualan penjualan);
 //    public void hapusPenjualan(Penjualan penjualan);
 //    public List<Penjualan> cariSemuaPenjualan();
