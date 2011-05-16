@@ -5,6 +5,7 @@
 package workshop.minimarket.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Hibernate;
 import workshop.minimarket.entity.Barang;
@@ -187,5 +188,16 @@ public class MinimarketServiceImpl implements MinimarketService {
              total += totalPd.getSubTotal();
        }
         return total;
+    }
+
+    @Override
+    public List<Penjualan> cariPenjualanByPeriod(Date tglStart, Date tglStop) {
+       List<Penjualan> listPd = new ArrayList<Penjualan>();
+        listPd = sessionFactory.getCurrentSession()
+		.createQuery("from Penjualan where tglNota between :tglStart and :tglStop")
+                .setDate("tglStart", tglStart).setDate("tglStop", tglStop)
+		.list();
+        Hibernate.initialize(listPd);
+        return listPd;
     }
 }

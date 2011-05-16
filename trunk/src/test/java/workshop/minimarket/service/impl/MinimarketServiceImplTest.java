@@ -6,7 +6,10 @@ package workshop.minimarket.service.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -110,14 +113,15 @@ public class MinimarketServiceImplTest {
     
     //Test simpan table penjualan
     
+     
      public void testSimpanPenjualan() throws Exception {
         Penjualan p = new Penjualan();
         p.setTglNota(new Date());
-        p.setKodePelanggan("Jaka");
+        p.setKodePelanggan("Abdul");
         p.setUserId("Rozak");
 
         minimarketService.simpanPenjualan(p);
-        testIsiTabel("t_penjualan", 1);
+        testIsiTabel("t_penjualan", 2);
     }
      
      
@@ -137,11 +141,22 @@ public class MinimarketServiceImplTest {
         minimarketService.simpanPenjualan(p);
     }
      
-     @Test
+     
      public void testHitungTotalPembayaran() throws Exception{
          Penjualan p = minimarketService.cariPenjualanByNoNota(1L);
          double total = minimarketService.hitungTotalPembayaranByNoNota(1L);
          p.setTotalBayar(total);
          minimarketService.simpanPenjualan(p);
+     }
+     
+     @Test
+     public void testCariPenjualanByNota() throws Exception{
+         Date start = new SimpleDateFormat("yyyy-MM-dd").parse("2011-05-16");
+         Date stop = new SimpleDateFormat("yyyy-MM-dd").parse("2011-05-18");
+         List<Penjualan> listP = minimarketService.cariPenjualanByPeriod(start,stop);
+         for (Penjualan p : listP)
+         {
+             System.out.println(p);
+         }
      }
 }

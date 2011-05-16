@@ -4,6 +4,7 @@
  */
 package workshop.minimarket.service;
 
+import java.util.Date;
 import java.util.List;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
@@ -35,6 +36,7 @@ public interface MinimarketService {
     public void hapusPenjualan(Penjualan penjualan);
     public List<Penjualan> cariSemuaPenjualan();
     public Penjualan cariPenjualanByNoNota(Long noNota);
+    public List<Penjualan> cariPenjualanByPeriod(Date start,Date stop);
     public double hitungTotalPembayaranByNoNota(Long noNota);
     
     public void simpanPenjualanDetail(PenjualanDetail penjualanDetail);
