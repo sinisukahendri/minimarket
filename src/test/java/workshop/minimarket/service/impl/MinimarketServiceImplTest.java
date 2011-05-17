@@ -20,6 +20,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
@@ -149,7 +150,7 @@ public class MinimarketServiceImplTest {
          minimarketService.simpanPenjualan(p);
      }
      
-     @Test
+     
      public void testCariPenjualanByNota() throws Exception{
          Date start = new SimpleDateFormat("yyyy-MM-dd").parse("2011-05-16");
          Date stop = new SimpleDateFormat("yyyy-MM-dd").parse("2011-05-18");
@@ -158,5 +159,33 @@ public class MinimarketServiceImplTest {
          {
              System.out.println(p);
          }
+     }
+     
+     
+     // Test simpan pengguna
+     public void testSimpanPengguna() throws Exception {
+        Pengguna p = new Pengguna();
+        p.setUserId("jaka");
+        p.setPassId("jaka");
+        p.setNama("Jaka Maulana");
+        p.setLevelPengguna("Admin");
+
+        minimarketService.simpanPengguna(p);
+        testIsiTabel("t_pengguna", 2);
+    }
+    
+    public void testCariSemuaPengguna() throws Exception{
+         List<Pengguna> listP = minimarketService.cariSemuaPengguna();
+         for (Pengguna p : listP)
+         {
+             System.out.println(p.getNama() + " , " + p.getPassId());
+         }
+     }
+    @Test
+    public void testCariPenggunaByUserId() throws Exception{
+         Pengguna p = minimarketService.cariPenngunaByUserId("rozak");
+         
+         System.out.println(p.getNama() + " , " + p.getPassId());
+         
      }
 }
