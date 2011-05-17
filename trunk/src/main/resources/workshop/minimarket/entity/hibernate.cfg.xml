@@ -10,5 +10,6 @@
     <mapping class="workshop.minimarket.entity.Barang"/>
     <mapping class="workshop.minimarket.entity.Penjualan"/>
     <mapping class="workshop.minimarket.entity.PenjualanDetail"/>
+    <mapping class="workshop.minimarket.entity.Pengguna"/>
   </session-factory>
 </hibernate-configuration>

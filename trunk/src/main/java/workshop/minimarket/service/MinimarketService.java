@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
@@ -42,6 +43,10 @@ public interface MinimarketService {
     public void simpanPenjualanDetail(PenjualanDetail penjualanDetail);
     public void hapusPenjualanDetail(PenjualanDetail penjualanDetail);
     public List<PenjualanDetail> cariSemuaPenjualanDetail();
-    public List<PenjualanDetail> cariPenjualanDetailByNoNota(Long noNota);     
-
+    public List<PenjualanDetail> cariPenjualanDetailByNoNota(Long noNota);   
+    
+    public void simpanPengguna(Pengguna pengguna);
+    public void hapusPengguna(Pengguna pengguna);
+    public List<Pengguna> cariSemuaPengguna();
+    public Pengguna cariPenngunaByUserId(String userId);
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
@@ -199,5 +200,33 @@ public class MinimarketServiceImpl implements MinimarketService {
 		.list();
         Hibernate.initialize(listPd);
         return listPd;
+    }
+
+    // Pengguna
+    @Override
+    public void simpanPengguna(Pengguna pengguna) {
+        sessionFactory.getCurrentSession().saveOrUpdate(pengguna);
+    }
+
+    @Override
+    public void hapusPengguna(Pengguna pengguna) {
+        sessionFactory.getCurrentSession().delete(pengguna);
+    }
+
+    @Override
+    public List<Pengguna> cariSemuaPengguna() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from Pengguna order by userId")
+    	.list();
+    }
+
+    @Override
+    public Pengguna cariPenngunaByUserId(String userId) {
+        Pengguna p = (Pengguna) sessionFactory.getCurrentSession()
+		.createQuery("from Pengguna where userId = :user")
+		.setString("user", userId)
+		.uniqueResult();
+		Hibernate.initialize(p.getNama());
+		return p;
     }
 }
