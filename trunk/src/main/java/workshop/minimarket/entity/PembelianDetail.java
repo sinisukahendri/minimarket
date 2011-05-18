@@ -20,12 +20,12 @@ import javax.persistence.Table;
 @Table(name = "t_pembeliandetail")
 public class PembelianDetail {
     @Id @GeneratedValue
-    @Column(name="kode_penjualan_detail")
+    @Column(name="kode_pembelian_detail")
     private Long kodePembelianDetail;
    
     @ManyToOne
     @JoinColumn(name = "no_masuk")
-    private Penjualan penjualan;
+    private Pembelian pembelian;
     
     @ManyToOne
     @JoinColumn(name = "kode_barang")
@@ -72,12 +72,12 @@ public class PembelianDetail {
         this.kodePembelianDetail = kodePembelianDetail;
     }
 
-    public Penjualan getPenjualan() {
-        return penjualan;
+    public Pembelian getPembelian() {
+        return pembelian;
     }
 
-    public void setPenjualan(Penjualan penjualan) {
-        this.penjualan = penjualan;
+    public void setPembelian(Pembelian pembelian) {
+        this.pembelian = pembelian;
     }
 
     public double getSubTotal() {
