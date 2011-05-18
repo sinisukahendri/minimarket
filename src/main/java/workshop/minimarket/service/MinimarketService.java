@@ -48,5 +48,5 @@ public interface MinimarketService {
     public void simpanPengguna(Pengguna pengguna);
     public void hapusPengguna(Pengguna pengguna);
     public List<Pengguna> cariSemuaPengguna();
-    public Pengguna cariPenngunaByUserId(String userId);
+    public Pengguna cariPenggunaByUserId(String userId);
 }

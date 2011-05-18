@@ -32,9 +32,6 @@ public class Barang {
     @ManyToOne
     @JoinColumn(name="kode_produk")
     private Produk produk;
-    
-    @OneToMany(mappedBy="barang", cascade= CascadeType.ALL)
-    private List<PenjualanDetail> daftarPenjualanDetail = new ArrayList<PenjualanDetail>();
         
     @NotNull
     @Column(name="nama_barang", length=120, nullable=false)
@@ -107,12 +104,4 @@ public class Barang {
     public void setStok(Integer stok) {
         this.stok = stok;
     }
-
-    public List<PenjualanDetail> getDaftarPenjualanDetail() {
-        return daftarPenjualanDetail;
-    }
-
-    public void setDaftarPenjualanDetail(List<PenjualanDetail> daftarPenjualanDetail) {
-        this.daftarPenjualanDetail = daftarPenjualanDetail;
-    }    
 }

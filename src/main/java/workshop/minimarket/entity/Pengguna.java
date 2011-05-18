@@ -9,13 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author BangsJack
  */
 @Entity 
-@Table(name="t_pengguna")
+@Table(name="t_pengguna",
+        uniqueConstraints = {@UniqueConstraint(columnNames={"user_id"})}
+        )
 public class Pengguna {
     @Id 
     @GeneratedValue

@@ -115,7 +115,7 @@ public class MinimarketServiceImpl implements MinimarketService {
 		.createQuery("from Barang where kodeBarang = :kode")
 		.setLong("kode", kodeBarang)
 		.uniqueResult();
-		Hibernate.initialize(b.getDaftarPenjualanDetail());
+		Hibernate.initialize(b.getNama_barang());
 		return b;
     }
 
@@ -221,12 +221,12 @@ public class MinimarketServiceImpl implements MinimarketService {
     }
 
     @Override
-    public Pengguna cariPenngunaByUserId(String userId) {
+    public Pengguna cariPenggunaByUserId(String userId) {
         Pengguna p = (Pengguna) sessionFactory.getCurrentSession()
 		.createQuery("from Pengguna where userId = :user")
 		.setString("user", userId)
 		.uniqueResult();
-		Hibernate.initialize(p.getNama());
+		Hibernate.initialize(p.getUserId());
 		return p;
     }
 }

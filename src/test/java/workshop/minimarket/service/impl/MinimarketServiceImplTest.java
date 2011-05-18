@@ -117,12 +117,10 @@ public class MinimarketServiceImplTest {
      
      public void testSimpanPenjualan() throws Exception {
         Penjualan p = new Penjualan();
+        Pengguna user = minimarketService.cariPenggunaByUserId("jaka");
         p.setTglNota(new Date());
-        p.setKodePelanggan("Abdul");
-        p.setUserId("Rozak");
-
+        p.setPengguna(user);
         minimarketService.simpanPenjualan(p);
-        testIsiTabel("t_penjualan", 2);
     }
      
      
@@ -138,11 +136,10 @@ public class MinimarketServiceImplTest {
         pd.setBarang(b);
               
         p.getDaftarPenjualanDetail().add(pd); // supaya k ikut cascade save      
-        b.getDaftarPenjualanDetail().add(pd);
         minimarketService.simpanPenjualan(p);
     }
      
-     
+     @Test
      public void testHitungTotalPembayaran() throws Exception{
          Penjualan p = minimarketService.cariPenjualanByNoNota(1L);
          double total = minimarketService.hitungTotalPembayaranByNoNota(1L);
@@ -162,16 +159,16 @@ public class MinimarketServiceImplTest {
      }
      
      
-     // Test simpan pengguna
+     
      public void testSimpanPengguna() throws Exception {
         Pengguna p = new Pengguna();
         p.setUserId("jaka");
-        p.setPassId("jaka");
+        p.setPassId("jaka123");
         p.setNama("Jaka Maulana");
         p.setLevelPengguna("Admin");
 
         minimarketService.simpanPengguna(p);
-        testIsiTabel("t_pengguna", 2);
+        testIsiTabel("t_pengguna", 1);
     }
     
     public void testCariSemuaPengguna() throws Exception{
@@ -181,9 +178,9 @@ public class MinimarketServiceImplTest {
              System.out.println(p.getNama() + " , " + p.getPassId());
          }
      }
-    @Test
+
     public void testCariPenggunaByUserId() throws Exception{
-         Pengguna p = minimarketService.cariPenngunaByUserId("rozak");
+         Pengguna p = minimarketService.cariPenggunaByUserId("rozak");
          
          System.out.println(p.getNama() + " , " + p.getPassId());
          
