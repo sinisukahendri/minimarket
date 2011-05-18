@@ -27,26 +27,28 @@ import javax.persistence.TemporalType;
 @Entity 
 @Table(name="t_pembelian")
 public class Pembelian {
-
     @Id
     @GeneratedValue
     @Column(name = "no_masuk", length = 10)
     private Long noMasuk;
+    
+    @OneToMany(mappedBy="pembelian", cascade=CascadeType.ALL, orphanRemoval=true)
+    private List<PembelianDetail> daftarPembelianDetail = new ArrayList<PembelianDetail>();
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "tgl_masuk")
     private Date tglMasuk;
-    @Column(name = "total_bayar")
-    private double totalBayar;
-    @Column(name = "kode_pelanggan", length = 5, nullable = false)
-    private String kodePemasok;
-
-    public String getKodePemasok() {
-        return kodePemasok;
-    }
-
-    public void setKodePemasok(String kodePemasok) {
-        this.kodePemasok = kodePemasok;
-    }
+    
+    @Column(name = "total")
+    private double total;
+    
+    @ManyToOne
+    @JoinColumn(name="kode_pemasok")
+    private Pemasok pemasok;
+    
+    @ManyToOne
+    @JoinColumn(name="kode_pengguna")
+    private Pengguna pengguna;
 
     public Long getNoMasuk() {
         return noMasuk;
@@ -64,12 +66,27 @@ public class Pembelian {
         this.tglMasuk = tglMasuk;
     }
 
-    public double getTotalBayar() {
-        return totalBayar;
+    public Pemasok getPemasok() {
+        return pemasok;
     }
 
-    public void setTotalBayar(double totalBayar) {
-        this.totalBayar = totalBayar;
+    public void setPemasok(Pemasok pemasok) {
+        this.pemasok = pemasok;
     }
-    
+
+    public Pengguna getPengguna() {
+        return pengguna;
+    }
+
+    public void setPengguna(Pengguna pengguna) {
+        this.pengguna = pengguna;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }    
 }

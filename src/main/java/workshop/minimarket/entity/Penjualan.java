@@ -42,6 +42,10 @@ public class Penjualan {
     private double totalBayar;
     
     @ManyToOne
+    @JoinColumn(name="kode_pelanggan")
+    private Pelanggan pelanggan;
+    
+    @ManyToOne
     @JoinColumn(name="kode_pengguna")
     private Pengguna pengguna;
 
@@ -84,4 +88,12 @@ public class Penjualan {
     public void setPengguna(Pengguna pengguna) {
         this.pengguna = pengguna;
     }
+
+    public Pelanggan getPelanggan() {
+        return pelanggan;
+    }
+
+    public void setPelanggan(Pelanggan pelanggan) {
+        this.pelanggan = pelanggan;
+    }    
 }
