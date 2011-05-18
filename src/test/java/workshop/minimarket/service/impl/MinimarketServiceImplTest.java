@@ -66,7 +66,7 @@ public class MinimarketServiceImplTest {
         p.setGrup(g);  // set FK
         
         Barang b = new Barang();
-        b.setNama_barang("LA LIGHTS");
+        b.setNamaBarang("LA LIGHTS");
         b.setHargaBeli(8000);
         b.setHargaJual(10000);
         b.setSatuan("bungkus");

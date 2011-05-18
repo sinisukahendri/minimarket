@@ -115,7 +115,7 @@ public class MinimarketServiceImpl implements MinimarketService {
 		.createQuery("from Barang where kodeBarang = :kode")
 		.setLong("kode", kodeBarang)
 		.uniqueResult();
-		Hibernate.initialize(b.getNama_barang());
+		Hibernate.initialize(b.getNamaBarang());
 		return b;
     }
 
