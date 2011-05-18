@@ -4,14 +4,10 @@
  */
 package workshop.minimarket.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,9 +31,6 @@ public class Pelanggan {
     @Column(name="no_telpon", length=15, nullable=false)
     private Integer noTelpon;
     
-    @OneToMany(mappedBy="pelanggan", cascade=CascadeType.ALL, orphanRemoval=true)
-    private List<Penjualan> daftarPenjualan = new ArrayList<Penjualan>();
-
     public String getAlamat() {
         return alamat;
     }
@@ -69,12 +62,4 @@ public class Pelanggan {
     public void setNoTelpon(Integer noTelpon) {
         this.noTelpon = noTelpon;
     }
-
-    public List<Penjualan> getDaftarPenjualan() {
-        return daftarPenjualan;
-    }
-
-    public void setDaftarPenjualan(List<Penjualan> daftarPenjualan) {
-        this.daftarPenjualan = daftarPenjualan;
-    }    
 }
