@@ -10,6 +10,9 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Pelanggan;
+import workshop.minimarket.entity.Pemasok;
+import workshop.minimarket.entity.Pembelian;
 import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
@@ -19,6 +22,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.minimarket.entity.PembelianDetail;
 
 /**
  *
@@ -59,7 +63,6 @@ public class MinimarketServiceImpl implements MinimarketService {
 		Hibernate.initialize(g.getDaftarProduk());
 		return g;
     }
-
     
     //PRODUK
     
@@ -146,10 +149,58 @@ public class MinimarketServiceImpl implements MinimarketService {
 		.uniqueResult();
 		Hibernate.initialize(p.getDaftarPenjualanDetail());
 		return p;
+    }   
+
+    //Pembelian
+    @Override
+    public void simpanPembelian(Pembelian pembelian) {
+        sessionFactory.getCurrentSession().saveOrUpdate(pembelian);
+    }
+
+    @Override
+    public void hapusPembelian(Pembelian pembelian) {
+        sessionFactory.getCurrentSession().delete(pembelian);
+    }
+
+    @Override
+    public List<Pembelian> cariSemuaPembelian() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from Pembelian order by tglMasuk")
+    	.list();
+    }
+
+    @Override
+    public Pembelian cariPembelianByNoMasuk(Long noMasuk) {
+        Pembelian p = (Pembelian) sessionFactory.getCurrentSession()
+		.createQuery("from Pembelian where noMasuk = :nota")
+		.setLong("nota", noMasuk)
+		.uniqueResult();
+		Hibernate.initialize(p.getDaftarPembelianDetail());
+		return p;
+    }
+
+    @Override
+    public List<Pembelian> cariPembelianByPeriod(Date tglStart, Date tglStop) {
+        List<Pembelian> listPb = new ArrayList<Pembelian>();
+        listPb = sessionFactory.getCurrentSession()
+		.createQuery("from Pembelian where tglMasuk between :tglStart and :tglStop")
+                .setDate("tglStart", tglStart).setDate("tglStop", tglStop)
+		.list();
+        Hibernate.initialize(listPb);
+        return listPb;
+    }
+
+    @Override
+    public double hitungTotalByNoMasuk(Long noMasuk) {
+        List<PembelianDetail> listPd = cariPembelianDetailByNoMasuk(noMasuk);
+       Pembelian p = cariPembelianByNoMasuk(noMasuk);
+       double total = 0;
+        for (PembelianDetail totalPd : listPd) {
+             total += totalPd.getSubTotal();
+       }
+        return total;
     }
     
-    
-
     // PenjualanDetail
     
     @Override
@@ -180,6 +231,35 @@ public class MinimarketServiceImpl implements MinimarketService {
         return listPd;
     }
 
+     //PembelianDetail
+    @Override
+    public void simpanPembelianDetail(PembelianDetail pembelianDetail) {
+        sessionFactory.getCurrentSession().saveOrUpdate(pembelianDetail);
+    }
+
+    @Override
+    public void hapusPembelianDetail(PembelianDetail pembelianDetail) {
+        sessionFactory.getCurrentSession().delete(pembelianDetail);
+    }
+
+    @Override
+    public List<PembelianDetail> cariSemuaPembelianDetail() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from PembelianDetail order by noMasuk")
+    	.list();
+    }
+
+    @Override
+    public List<PembelianDetail> cariPembelianDetailByNoMasuk(Long noMasuk) {
+        List<PembelianDetail> listPd = new ArrayList<PembelianDetail>();
+        listPd = sessionFactory.getCurrentSession()
+		.createQuery("from PembelianDetail where pembelian.noMasuk = :nota")
+                .setLong("nota", noMasuk)
+		.list();
+        Hibernate.initialize(listPd);
+        return listPd;
+    }    
+   
     @Override
     public double hitungTotalPembayaranByNoNota(Long noNota) {
        List<PenjualanDetail> listPd = cariPenjualanDetailByNoNota(noNota);
@@ -229,4 +309,60 @@ public class MinimarketServiceImpl implements MinimarketService {
 		Hibernate.initialize(p.getUserId());
 		return p;
     }
+
+    //Pelanggan
+    @Override
+    public void simpanPelanggan(Pelanggan pelanggan) {
+        sessionFactory.getCurrentSession().saveOrUpdate(pelanggan);
+    }
+
+    @Override
+    public void hapusPelanggan(Pelanggan pelanggan) {
+        sessionFactory.getCurrentSession().delete(pelanggan);
+    }
+
+    @Override
+    public List<Pelanggan> cariSemuaPelanggan() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from Pelanggan order by kodePelanggan")
+    	.list();
+    }
+
+    @Override
+    public Pelanggan cariPelangganByKodePelanggan(Long kodePelanggan) {
+        Pelanggan p = (Pelanggan) sessionFactory.getCurrentSession()
+		.createQuery("from Pelanggan where kodePelanggan = :kode")
+		.setLong("kode", kodePelanggan)
+		.uniqueResult();
+		Hibernate.initialize(p.getKodePelanggan());
+		return p;
+    }
+
+    //Pemasok
+    @Override
+    public void simpanPemasok(Pemasok pemasok) {
+        sessionFactory.getCurrentSession().saveOrUpdate(pemasok);
+    }
+
+    @Override
+    public void hapusPemasok(Pemasok pemasok) {
+        sessionFactory.getCurrentSession().delete(pemasok);
+    }
+
+    @Override
+    public List<Pemasok> cariSemuaPemasok() {
+         return sessionFactory.getCurrentSession()
+    	.createQuery("from Pemasok order by kodePemasok")
+    	.list();
+    }
+
+    @Override
+    public Pemasok cariPemasokByKodePemasok(Long kodePemasok) {
+        Pemasok p = (Pemasok) sessionFactory.getCurrentSession()
+		.createQuery("from Pemasok where kodePemasok = :kode")
+		.setLong("kode", kodePemasok)
+		.uniqueResult();
+		Hibernate.initialize(p.getKodePemasok());
+		return p;
+    }    
 }

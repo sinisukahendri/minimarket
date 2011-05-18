@@ -39,8 +39,8 @@ public class Pembelian {
     @Column(name = "tgl_masuk")
     private Date tglMasuk;
     
-    @Column(name = "total")
-    private double total;
+    @Column(name = "total_pembelian")
+    private double totalPembelian;
     
     @ManyToOne
     @JoinColumn(name="kode_pemasok")
@@ -83,10 +83,18 @@ public class Pembelian {
     }
 
     public double getTotal() {
-        return total;
+        return totalPembelian;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setTotal(double totalPembelian) {
+        this.totalPembelian = totalPembelian;
+    }
+
+    public List<PembelianDetail> getDaftarPembelianDetail() {
+        return daftarPembelianDetail;
+    }
+
+    public void setDaftarPembelianDetail(List<PembelianDetail> daftarPembelianDetail) {
+        this.daftarPembelianDetail = daftarPembelianDetail;
     }    
 }
