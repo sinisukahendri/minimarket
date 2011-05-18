@@ -19,6 +19,10 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import workshop.minimarket.entity.Barang;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Pelanggan;
+import workshop.minimarket.entity.Pemasok;
+import workshop.minimarket.entity.Pembelian;
+import workshop.minimarket.entity.PembelianDetail;
 import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
@@ -109,36 +113,37 @@ public class MinimarketServiceImplTest {
         } catch (Exception e) {
             System.out.println("\nDATA BARANG YANG DIMASUKKAN TIDAK DITEMUKAN!\n");
         }
-    }   
-    
-    //Test simpan table penjualan
+    }       
     
      
-     public void testSimpanPenjualan() throws Exception {
-        Penjualan p = new Penjualan();
+     public void testSimpanPembelian() throws Exception {
+        Pemasok pm = minimarketService.cariPemasokByKodePemasok(1L);
+        Pembelian p = new Pembelian();
+        
         Pengguna user = minimarketService.cariPenggunaByUserId("jaka");
-        p.setTglNota(new Date());
+        p.setTglMasuk(new Date());
         p.setPengguna(user);
-        minimarketService.simpanPenjualan(p);
+        p.setPemasok(pm);
+        minimarketService.simpanPembelian(p);
     }
      
-     
-     public void testCascadeSavePenjualanDetail() throws Exception {
-        Penjualan p = minimarketService.cariPenjualanByNoNota(1L);     
-        Barang b = minimarketService.cariBarangByKodeBarang(2L);
+      @Test
+     public void testCascadeSavePembelianDetail() throws Exception {
+        Pembelian p = minimarketService.cariPembelianByNoMasuk(1L);     
+        Barang b = minimarketService.cariBarangByKodeBarang(1L);
        
-        PenjualanDetail pd = new PenjualanDetail();        
+        PembelianDetail pd = new PembelianDetail();        
         pd.setJumlah(2);
-        pd.setHargaJual(b.getHargaJual());              
-        pd.setSubTotal(pd.getHargaJual() * pd.getJumlah());
-        pd.setPenjualan(p);
+        pd.setHargaBeli(b.getHargaBeli());              
+        pd.setSubTotal(pd.getHargaBeli() * pd.getJumlah());
+        pd.setPembelian(p);
         pd.setBarang(b);
               
-        p.getDaftarPenjualanDetail().add(pd); // supaya k ikut cascade save      
-        minimarketService.simpanPenjualan(p);
+        p.getDaftarPembelianDetail().add(pd); // supaya k ikut cascade save      
+        minimarketService.simpanPembelian(p);
     }
      
-     @Test
+     
      public void testHitungTotalPembayaran() throws Exception{
          Penjualan p = minimarketService.cariPenjualanByNoNota(1L);
          double total = minimarketService.hitungTotalPembayaranByNoNota(1L);
@@ -155,9 +160,7 @@ public class MinimarketServiceImplTest {
          {
              System.out.println(p);
          }
-     }
-     
-     
+     }    
      
      public void testSimpanPengguna() throws Exception {
         Pengguna p = new Pengguna();
@@ -184,4 +187,29 @@ public class MinimarketServiceImplTest {
          System.out.println(p.getNama() + " , " + p.getPassId());
          
      }
+   
+    public void testSimpanPelanggan() throws Exception {
+        Pelanggan p = new Pelanggan();
+        p.setNamaPelanggan("jaka");
+        p.setAlamat("Tangerang");
+        p.setNoTelpon(343434);      
+
+        minimarketService.simpanPelanggan(p);
+        testIsiTabel("t_pelanggan", 1);
+    }
+    
+    
+    public void testSimpanPemasok() throws Exception {
+        Pemasok p = new Pemasok();
+        p.setNamaPemasok("rozak");
+        p.setAlamat("Kendal");
+        p.setKota("Kendal");
+        p.setPropinsi("Jawa Tengah");
+        p.setNoTelpon(121212);
+        p.setNoFax(43435);
+        p.setKontakP(577575);
+
+        minimarketService.simpanPemasok(p);
+        testIsiTabel("t_pemasok", 1);
+    }
 }
