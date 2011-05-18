@@ -35,7 +35,7 @@ public class Barang {
         
     @NotNull
     @Column(name="nama_barang", length=120, nullable=false)
-    private String nama_barang;
+    private String namaBarang;
     
     @Column(name="satuan", length=25)
     private String satuan;
@@ -81,13 +81,13 @@ public class Barang {
         this.produk = produk;
     }
 
-    public String getNama_barang() {
-        return nama_barang;
+    public String getNamaBarang() {
+        return namaBarang;
     }
 
-    public void setNama_barang(String nama_barang) {
-        this.nama_barang = nama_barang;
-    }
+    public void setNamaBarang(String namaBarang) {
+        this.namaBarang = namaBarang;
+    }   
 
     public String getSatuan() {
         return satuan;
