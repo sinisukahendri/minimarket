@@ -55,8 +55,9 @@ public class MinimarketServiceImplTest {
         g.setNamaGrup("KOPI");
 
         minimarketService.simpanGrup(g);
-        testIsiTabel("t_grup", 1);
     }
+    
+    
   
    //Test menyimpan pada Cascade
     public void testCascadeSave() throws Exception {

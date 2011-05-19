@@ -3,40 +3,40 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
 			classpath*:workshop/**/applicationContext.xml
 			WEB-INF/spring-security-ctx.xml
-		</param-value>
-	</context-param>
+        </param-value>
+    </context-param>
 
-	<listener>
-		<description>Listener Spring, menginstankan context pada startup</description>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <listener>
+        <description>Listener Spring, menginstankan context pada startup</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+            
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+  
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>   
+        
+    <servlet>
+        <servlet-name>Tapestry</servlet-name>
+        <servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Tapestry</servlet-name>
+        <url-pattern>/User.html</url-pattern>
+    </servlet-mapping>
 
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<servlet>
-		<servlet-name>Administrasi</servlet-name>
-		<servlet-class>workshop.minimarket.ui.servlet.Admin</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Administrasi</servlet-name>
-		<url-pattern>/admin</url-pattern>
-	</servlet-mapping>
-
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>
