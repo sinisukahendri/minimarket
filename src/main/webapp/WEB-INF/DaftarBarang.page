@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+"-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="workshop.minimarket.ui.tapestry.controller.BarangController">
+	<property name="g"/>
+
+	<component id="tabelBarang" type="For">
+		<binding name="source" value="daftarBarang"/>
+		<binding name="value" value="g"/>
+		<binding name="element" value="literal:tr"/>
+	</component>
+	
+	<component id="kodeBarang" type="Insert">
+		<binding name="value" value="g.kodeBarang"/>
+	</component>
+	
+	<component id="namaBarang" type="Insert">
+		<binding name="value" value="g.namaBarang"/>
+	</component>
+
+        <component id="satuan" type="Insert">
+		<binding name="value" value="g.satuan"/>
+	</component>
+	
+	<component id="hargaBeli" type="Insert">
+		<binding name="value" value="g.hargaBeli"/>
+	</component>
+
+        <component id="hargaJual" type="Insert">
+		<binding name="value" value="g.hargaJual"/>
+	</component>
+
+        <component id="stok" type="Insert">
+		<binding name="value" value="g.stok"/>
+	</component>
+        
+        <component id="kodeProduk" type="Insert">
+		<binding name="value" value="g.produk.kodeProduk"/>
+	</component>
+        
+        <component id="namaProduk" type="Insert">
+		<binding name="value" value="g.produk.namaProduk"/>
+	</component>
+
+</page-specification>
