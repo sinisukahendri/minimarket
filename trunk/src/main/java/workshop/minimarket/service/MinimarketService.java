@@ -16,6 +16,7 @@ import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
+import workshop.minimarket.entity.Session;
 
 /**
  *
@@ -75,4 +76,9 @@ public interface MinimarketService {
     public void hapusPemasok(Pemasok pemasok);
     public List<Pemasok> cariSemuaPemasok();
     public Pemasok cariPemasokByKodePemasok(Long kodePemasok);
+    
+    public void simpanSession(Session session);
+    public void hapusSession(Session session);
+     public List<Session> cariSemuaSession();
+     public Session cariSessionById();
 }

@@ -17,6 +17,7 @@ import workshop.minimarket.entity.Pengguna;
 import workshop.minimarket.entity.Penjualan;
 import workshop.minimarket.entity.PenjualanDetail;
 import workshop.minimarket.entity.Produk;
+import workshop.minimarket.entity.Session;
 import workshop.minimarket.service.MinimarketService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -364,5 +365,33 @@ public class MinimarketServiceImpl implements MinimarketService {
 		.uniqueResult();
 		Hibernate.initialize(p.getKodePemasok());
 		return p;
-    }    
+    }
+
+    @Override
+    public void simpanSession(Session session) {
+         sessionFactory.getCurrentSession().saveOrUpdate(session);
+    }
+
+    @Override
+    public void hapusSession(Session session) {
+        sessionFactory.getCurrentSession().delete(session);
+    }
+
+    @Override
+    public List<Session> cariSemuaSession() {
+        return sessionFactory.getCurrentSession()
+    	.createQuery("from Session order by id")
+    	.list();
+    }
+
+    @Override
+    public Session cariSessionById() {
+        Long id = 1L;
+        Session s = (Session) sessionFactory.getCurrentSession()
+		.createQuery("from Session where id = :id")
+		.setLong("id", id)
+		.uniqueResult();
+		Hibernate.initialize(s);
+		return s;
+    }
 }
