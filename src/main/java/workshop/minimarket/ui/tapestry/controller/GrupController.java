@@ -6,9 +6,13 @@ package workshop.minimarket.ui.tapestry.controller;
 
 import com.javaforge.tapestry.spring.annotations.InjectSpring;
 import java.util.List;
+import org.apache.tapestry.form.IPropertySelectionModel;
+import org.apache.tapestry.form.StringPropertySelectionModel;
 
 import org.apache.tapestry.html.BasePage;
 import workshop.minimarket.entity.Grup;
+import workshop.minimarket.entity.Produk;
+import workshop.minimarket.entity.Session;
 import workshop.minimarket.service.MinimarketService;
 
 /**
@@ -19,8 +23,7 @@ public abstract class GrupController extends BasePage {
 
     @InjectSpring("minimarketService")
     public abstract MinimarketService getMinimarketService();
-  
-   private String namanyas;
+    private String namanyas;
 
     public String getNamanyas() {
         return namanyas;
@@ -30,7 +33,7 @@ public abstract class GrupController extends BasePage {
         this.namanyas = namanyas;
     }
 
-    public List<Grup> getDaftarGrup() {
+    public List getDaftarGrup() {
         List<Grup> daftarGrup = getMinimarketService().cariSemuaGrup();
         return daftarGrup;
     }
@@ -38,9 +41,12 @@ public abstract class GrupController extends BasePage {
     public String simpan() {
         Grup grup = new Grup();
         grup.setNamaGrup(getNamanyas());
-        getMinimarketService().simpanGrup(grup);        
-        
+        getMinimarketService().simpanGrup(grup);
+
         return "DaftarGrup";
     }
-
+    
+     public String tambahLagi(){
+        return "InputProduk";
+    }
 }

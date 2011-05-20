@@ -17,5 +17,6 @@
     <mapping class="workshop.minimarket.entity.Pemasok"/>
     <mapping class="workshop.minimarket.entity.Pembelian"/>
     <mapping class="workshop.minimarket.entity.PembelianDetail"/>
+    <mapping class="workshop.minimarket.entity.Session"/>
   </session-factory>
 </hibernate-configuration>

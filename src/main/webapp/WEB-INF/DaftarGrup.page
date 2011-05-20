@@ -19,4 +19,8 @@
 		<binding name="value" value="g.namaGrup"/>
 	</component>
 
+        <component id="formTambah" type="Form">
+		<binding name="listener" value="listener:tambahLagi"/>	
+	</component>
+
 </page-specification>

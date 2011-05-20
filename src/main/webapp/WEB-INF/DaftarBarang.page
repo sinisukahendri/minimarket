@@ -43,4 +43,8 @@
 		<binding name="value" value="g.produk.namaProduk"/>
 	</component>
 
+        <component id="tambahLagi" type="Form">
+		<binding name="listener" value="listener:tambahLagi"/>	
+	</component>
+
 </page-specification>

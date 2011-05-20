@@ -23,4 +23,9 @@
 		<binding name="value" value="g.grup.kodeGrup"/>
 	</component>
 
+        
+        <component id="formTambah" type="Form">
+		<binding name="listener" value="listener:tambahLagi"/>	
+	</component>
+
 </page-specification>

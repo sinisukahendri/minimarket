@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +26,6 @@ import javax.persistence.TemporalType;
 @Table(name="t_penjualan")
 public class Penjualan {
     @Id 
-    @GeneratedValue
     @Column(name="no_nota", length=10)
     private Long noNota;
     
