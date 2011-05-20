@@ -8,14 +8,15 @@
 
     <http auto-config="true">
          <intercept-url pattern="/login.html" filters="none"/>
-        <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_USER" />
-        <form-login login-page="/login.html" default-target-url="/User.html"/>
+         <intercept-url pattern="/app" access="ROLE_USER" />
+        <intercept-url pattern="/**" filters="none" />
+        <form-login login-page="/login.html" default-target-url="/app"/>
     </http>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="jaka" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
+                <user name="jaka" password="admin" authorities="ROLE_USER"/>
                 <user name="rojak" password="user" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+"-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="workshop.minimarket.ui.tapestry.controller.KasirController">
+<inject property="cart" type="state" object="cart"/>
+
+<property name="currentPd"/>
+        <component id="tabelPd" type="For">
+            <binding name="source" value="daftarPenjualanDetail"/>
+            <binding name="value" value="currentPd"/>
+            <binding name="element" value="literal:tr"/>
+        </component>
+
+        <component id="tabelHitung" type="Form"/>
+        
+        <component id="noNota" type="Insert">
+            <binding name="value" value="currentPd.penjualan.noNota"/>
+        </component>
+
+        <component id="kodeBarang" type="Insert">
+            <binding name="value" value="currentPd.barang.kodeBarang"/>
+        </component>
+
+        <component id="namaBarang" type="Insert">
+            <binding name="value" value="currentPd.barang.namaBarang"/>
+        </component>
+
+        <component id="hargaJual" type="Insert">
+            <binding name="value" value="currentPd.barang.hargaJual"/>
+        </component>
+
+        <component id="jumlah" type="Insert">
+            <binding name="value" value="currentPd.jumlah"/>
+        </component>
+
+        <component id="subTotal" type="Insert">
+            <binding name="value" value="currentPd.subTotal"/>
+        </component>
+
+        <component id="cartActionForm" type="Form"/>
+        
+        <component id="hitung" type="Submit">
+            <binding name="action" value="listener:onCheckout"/>
+        </component>
+
+        <component id="tambah" type="Submit">
+            <binding name="action" value="listener:continueShopping"/>
+        </component>
+
+</page-specification>
+

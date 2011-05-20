@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>List Transaksi</title>
+    </head>
+    <body>
+
+        <h1>List Transaksi</h1>
+        <table border="1px">
+            <tr>
+                <td><span>No Nota</span></td>
+                <td><span>Kode Barang</span></td>
+                <td><span>Nama Barang</span></td>
+                <td><span>Harga</span></td>
+                <td><span>Jumlah</span></td>
+                <td><span>Sub Total</span></td>
+            </tr>
+
+            <tr jwcid="tabelPd">
+                <td> <span jwcid="noNota"> Nota</span></td>
+                <td> <span jwcid="kodeBarang">kode</span></td>
+                <td> <span jwcid="namaBarang">nama</span></td>
+                <td> <span jwcid="hargaJual">harga</span></td>
+                <td> <span jwcid="jumlah">jumlah</span></td>
+                <td> <span jwcid="subTotal">subtotal</span></td>
+            </tr>
+        </table>
+        
+        <form jwcid="tabelHitung">
+            <table>
+                <tr>
+                    <td>
+                        <input type="submit" value="TAMBAH" jwcid="tambah"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="BAYAR" jwcid="hitung"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
