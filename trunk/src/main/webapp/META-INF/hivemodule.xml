@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<module id="workshop.minimarket.ui.tapestry.controller" version="1.0.0">
+    <contribution configuration-id="tapestry.state.ApplicationObjects">
+        <state-object name="cart" scope="session">
+            <create-instance class="java.util.ArrayList"/>
+        </state-object>
+    </contribution>
+</module>
