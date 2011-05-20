@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+"-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="workshop.minimarket.ui.tapestry.controller.KasirController">
+
+	<component id="formEntriPenjualan" type="Form"/>
+            
+
+        <component id="jumlah" type="TextField">
+		<binding name="value" value="ognl:jumlah"/>	
+	</component>
+       
+	<component id="BarangId" type="PropertySelection">
+		<binding name="model" value="daftarBarang"/>
+		<binding name="value" value="selectedBarangId"/>
+	</component>
+
+        <component id="simpan" type="Submit">
+            <binding name="action" value="listener:simpan"/>
+        </component>
+
+</page-specification>
+
